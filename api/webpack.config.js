@@ -3,6 +3,9 @@ var webpack = require('webpack');
 //Plugins
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
+//webpack-hot-moddleware
+var hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true&overlay=true';
+
 module.exports = {
   //enable source-maps
   devtool: 'source-map',
@@ -16,6 +19,8 @@ module.exports = {
       { test: /\.less$/, loader: "style-loader!css-loader!less-loader"},
 
       //taken from gowravshekar/bootstrap-webpack
+      // the url-loader uses DataUrls.
+      // the file-loader emits files.
       {test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff'},
       {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
       {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
@@ -23,13 +28,13 @@ module.exports = {
     ],
   },
   entry: {
-    'main': './api/assets/js/index.js',
-    'styles': './api/assets/css/index.js'
+    'main': [__dirname+'/assets/js/index.js', hotMiddlewareScript],
+    'styles': [__dirname+'/assets/css/index.js', hotMiddlewareScript],
   },
   output: {
     filename: "[name].js",
     chunkFilename: "[id].js",
-    path: 'api/public/built',
+    path: '/built/',
     libraryTarget: 'umd'
   },
   plugins: [
@@ -41,5 +46,10 @@ module.exports = {
       jQuery: "jquery",
       "window.jQuery": "jquery"
     }),
+
+    //webpack-hot-middleware
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
   ]
 }
