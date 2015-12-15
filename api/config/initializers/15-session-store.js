@@ -4,7 +4,7 @@ var RedisStore = require('connect-redis')(session);
 var normalizeUtil = require('../../utils/normalize')();
 
 var maxAge = 24 * 60 * 60 * 1000; //24 hours
-var packageName = require('../../package').name;
+var packageName = require('../../../package').name;
 var settings = {
   host: process.env.REDIS_HOST || 'localhost',
   port: normalizeUtil.port(process.env.REDIS_PORT || '6379'),

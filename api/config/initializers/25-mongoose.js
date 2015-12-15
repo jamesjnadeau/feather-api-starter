@@ -3,7 +3,7 @@ var logger = require('../../utils/logger');
 //var logger = console;
 var normalizeUtil = require('../../utils/normalize')();
 
-var packageName = require('../../package').name;
+var packageName = require('../../../package').name;
 var settings = {
   host: process.env.MONGO_HOST || 'localhost',
   port: normalizeUtil.port(process.env.MONGO_PORT || '27017'),

@@ -6,7 +6,8 @@
   "scripts": {
     "api:build": "node_modules/.bin/webpack --progress --colors -d -p",
     "api:watch": "node_modules/.bin/webpack --progress --colors -d --watch",
-    "dev:api": "npm run api:watch & PORT=8080 DEBUG=api:* nodemon ./bin/www",
+    "server:watch": "nodemon ./api/bin/www",
+    "dev": "npm run api:watch & npm run server:watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "James J Nadeau",
@@ -26,10 +27,11 @@
     "feathers": "^1.2.1",
     "feathers-mongoose-advanced": "^0.1.7",
     "file-loader": "^0.8.5",
-    "jade": "~1.11.0",
+    "jade": "^1.11.0",
     "jquery": "^2.1.4",
     "less": "^2.5.3",
     "less-loader": "^2.2.2",
+    "log4js": "^0.6.29",
     "mongoose": "^4.3.1",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",

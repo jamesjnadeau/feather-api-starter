@@ -25,13 +25,13 @@ module.exports = {
     ],
   },
   entry: {
-    'main': './assets/js/index.js',
-    'styles': './assets/css/index.js'
+    'main': './api/assets/js/index.js',
+    'styles': './api/assets/css/index.js'
   },
   output: {
     filename: "[name].js",
     chunkFilename: "[id].js",
-    path: 'public/built',
+    path: 'api/public/built',
     libraryTarget: 'umd'
   },
   plugins: [
