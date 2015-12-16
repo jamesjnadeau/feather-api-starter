@@ -4,10 +4,11 @@
   "description": "A website deditcate to raising funds for a Veteran servicing non-profit organization.",
   "private": true,
   "scripts": {
-    "api:build": "node_modules/.bin/webpack --progress --colors -d -p",
+    "build": "node_modules/.bin/webpack --progress --colors -d -p",
     "api:watch": "node_modules/.bin/webpack --progress --colors -d --watch",
     "server:watch": "nodemon ./api/bin/www",
-    "dev": "npm run api:watch & npm run server:watch",
+    "frontend:watch": "node ./frontend/dev-server.js",
+    "dev": "npm run api:watch & npm run server:watch & npm run frontend:watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "James J Nadeau",
@@ -38,13 +39,16 @@
     "passport-local-mongoose": "^3.1.0",
     "require-directory": "^2.1.1",
     "serve-favicon": "~2.3.0",
+    "static-site-loader": "0.0.3",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.9",
     "webpack-dev-middleware": "^1.4.0",
+    "webpack-dev-server": "^1.14.0",
     "webpack-hot-middleware": "^2.6.0"
   },
   "devDependencies": {
-    "nodemon": "^1.8.1"
+    "nodemon": "^1.8.1",
+    "open": "0.0.5"
   }
 }

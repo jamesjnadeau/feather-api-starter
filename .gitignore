@@ -3,3 +3,6 @@
 node_modules*
 
 api/public/*
+frontend/built/*
+
+npm-debug.log

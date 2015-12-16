@@ -4,7 +4,7 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 //webpack-hot-moddleware
-var hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true&overlay=true';
+var hotMiddlewareScript = 'webpack-hot-middleware/client?path=/built&timeout=20000&reload=true&overlay=true';
 
 module.exports = {
   //enable source-maps
@@ -34,7 +34,7 @@ module.exports = {
   output: {
     filename: "[name].js",
     chunkFilename: "[id].js",
-    path: '/built/',
+    path: '/public/built/',
     libraryTarget: 'umd'
   },
   plugins: [
