@@ -8,14 +8,14 @@ require('dotenv').load();
  * Module dependencies.
  */
 var app = require('../app');
-var debug = require('debug')('api:server');
+var debug = require('debug')('api');
 var http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
 var normalizeUtil = require('../utils/normalize');
-var port = normalizeUtil().port(process.env.PORT || '3000');
+var port = normalizeUtil().port(process.env.API_PORT || '8080');
 app.set('port', port);
 
 /**
@@ -23,6 +23,15 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+
+/**
+ * Ensure graceful shutdown
+ */
+process.on('SIGTERM', function () {
+  server.close(function () {
+    process.exit(0);
+  });
+});
 
 /**
  * Listen on provided port, on all network interfaces.

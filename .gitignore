@@ -6,3 +6,5 @@ api/public/*
 frontend/built/*
 
 npm-debug.log
+pm2-development.json
+pm2-production.json

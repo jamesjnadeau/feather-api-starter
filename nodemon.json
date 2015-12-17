@@ -3,7 +3,11 @@
   "ignore": [
     ".git",
     "node_modules",
-    "frontend",
+    "frontend/assets",
+    "frontend/built",
+    "frontend/content",
+    "frontend/views",
+    "frontend/layouts",
     "api/assets",
     "api/public"
   ],

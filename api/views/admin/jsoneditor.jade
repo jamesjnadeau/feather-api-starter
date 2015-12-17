@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+  h1 JSON EDITOR
+  .row.json-model-editor
+    .col-md-2
+      ul.nav.nav-pills.nav-stacked(id="model-selector")
+        each model in models
+          li
+            a(href="javascript:void(0);") #{model}
+    .col-md-3
+      ul.nav.nav-pills.nav-stacked(id="id-selector")
+          
+    .col-md-7
+      .btn.btn-primary.pull-right(id="save-button") Save
+      h2#editor-record-name Nothing loaded
+      #editor-container

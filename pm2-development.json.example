@@ -1,0 +1,27 @@
+{
+  "apps" : [
+    {
+      "name"        : "api",
+      "script"      : "./api/bin/www",
+      "watch"       : ["api"],
+      "restart_delay": "5000",
+      "ignore_watch": [
+        "api/assets",
+        "api/public"
+      ],
+    },
+    {
+      "name"        : "frontend",
+      "script"      : "./frontend/dev-server.js",
+      "watch"       : ["frontend"],
+      "restart_delay": "5000",
+      "ignore_watch": [
+        "frontend/assets",
+        "frontend/built",
+        "frontend/content",
+        "frontend/views",
+        "frontend/layouts",
+      ],
+    },
+  ]
+}

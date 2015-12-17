@@ -10,6 +10,15 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmw&timeout=20000&reload=true&overlay=true';
 
+//Globals - used across all packs
+var resolve = {
+  root: pathUtil.resolve(__dirname),
+  alias: {
+    notifyUtil: 'shared/assets/js/utils/notify.js',
+    errorUtil: 'shared/assets/js/utils/error-notify.js',
+  },
+};
+
 module.exports = [
 /*
  * Api
@@ -28,6 +37,14 @@ module.exports = [
         {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
         {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
         {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml'},
+        //image-loader
+        {
+          test: /\.(jpe?g|png|gif|svg)$/i,
+          loaders: [
+              'file?hash=sha512&digest=hex&name=[hash].[ext]',
+              'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+          ]
+        }
       ],
     },
     entry: {
@@ -40,6 +57,7 @@ module.exports = [
       path: __dirname+'/api/public/built/',
       libraryTarget: 'umd'
     },
+    resolve: resolve,
     plugins: [
       //outputs all css to this file
       new ExtractTextPlugin("styles.css"),
@@ -78,6 +96,7 @@ module.exports = [
       'main': [__dirname+'/frontend/assets/js/index.js'],
       'styles': [__dirname+'/frontend/assets/css/index.js'],
       'site-generator': 'static-site-loader!'+__dirname+'/frontend/content/index.js',
+      'content-loader': './shared/contentPlugin!'+__dirname+'/frontend/content/index.js',
     },
     output: {
       filename: "[name].js",
@@ -85,6 +104,7 @@ module.exports = [
       path: __dirname+'/frontend/built/',
       libraryTarget: 'umd'
     },
+    resolve: resolve,
     plugins: [
       //outputs all css to this file
       new ExtractTextPlugin("styles.css"),
@@ -120,10 +140,12 @@ module.exports = [
         return urlPath;
       },
       processFile: function(file, content) {
-        return jade.render(content, {
+        var local = {
           pretty: false,
-          filename: file.absPath
-        });
+          filename: file.absPath,
+          API_URL: process.env.API_URL || false,
+        };
+        return jade.render(content, local);
       }
     }
   }

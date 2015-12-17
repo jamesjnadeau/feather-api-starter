@@ -1,3 +1,6 @@
+//Loade .env file
+require('dotenv').load();
+
 var open = require("open");
 var WebpackDevServer = require("webpack-dev-server");
 var webpack = require("webpack");
@@ -29,7 +32,7 @@ var server = new WebpackDevServer(compiler, {
   },*/
 
   // webpack-dev-middleware options
-  quiet: false,
+  quiet: true,
   noInfo: false,
   lazy: false,
   //filename: "bundle.js",
@@ -38,16 +41,17 @@ var server = new WebpackDevServer(compiler, {
     poll: 1000
   },
   publicPath: "/",
-  //headers: { "X-Custom-Header": "yes" },
+  headers: { "Access-Control-Allow-Origin": "*" },
   stats: { colors: true },
 });
-server.listen(8081, "localhost", function() {
-  var url = 'http://localhost:8081/webpack-dev-server/';
+var port = process.env.PORT || 8081;
+server.listen(port, "localhost", function() {
+  var url = 'http://localhost:'+port+'/webpack-dev-server/';
   console.log('Listening on '+url);
   //it would be nice to be able to launch a browser after the first compiler
   //however this does not appear to be available, so this will do for now...
   setTimeout(function() {
-    open(url)
+    open(url);
   }, 2000)
 });
 // server.close();

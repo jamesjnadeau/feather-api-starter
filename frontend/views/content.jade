@@ -1,0 +1,7 @@
+extends ../layouts/default
+
+block content
+  -var title = fields.title || 'Missing Title field';
+  h1 #{title}
+  -var temp = JSON.stringify(fields, false, 2);
+  pre !{temp}
