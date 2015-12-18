@@ -3,7 +3,7 @@
     {
       "name"        : "api",
       "script"      : "./api/bin/www",
-      "watch"       : ["api", "shared"],
+      "watch"       : ["api", "node_modules/_local"],
       "restart_delay": "5000",
       "ignore_watch": [
         "api/assets",
@@ -13,7 +13,7 @@
     {
       "name"        : "frontend",
       "script"      : "./frontend/dev-server.js",
-      "watch"       : ["frontend", "shared"],
+      "watch"       : ["frontend", "node_modules/_local"],
       "restart_delay": "5000",
       "ignore_watch": [
         "frontend/assets",

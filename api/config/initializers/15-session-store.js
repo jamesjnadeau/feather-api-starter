@@ -1,7 +1,7 @@
-var logger = require('../../utils/logger');
+var logger = require('_local/utils/logger');
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
-var normalizeUtil = require('../../utils/normalize')();
+var normalizeUtil = require('_local/utils/normalize')();
 
 var maxAge = 24 * 60 * 60 * 1000; //24 hours
 var packageName = require('../../../package').name;

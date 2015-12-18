@@ -14,8 +14,8 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var resolve = {
   root: pathUtil.resolve(__dirname),
   alias: {
-    notifyUtil: 'shared/assets/js/utils/notify.js',
-    errorUtil: 'shared/assets/js/utils/error-notify.js',
+    notifyUtil: '_local/assets/js/utils/notify.js',
+    errorUtil: '_local/assets/js/utils/error-notify.js',
   },
 };
 
@@ -96,7 +96,7 @@ module.exports = [
       'main': [__dirname+'/frontend/assets/js/index.js'],
       'styles': [__dirname+'/frontend/assets/css/index.js'],
       'site-generator': 'static-site-loader!'+__dirname+'/frontend/content/index.js',
-      'content-loader': './shared/contentPlugin!'+__dirname+'/frontend/content/index.js',
+      'content-loader': '_local/contentPlugin!'+__dirname+'/frontend/content/index.js',
     },
     output: {
       filename: "[name].js",

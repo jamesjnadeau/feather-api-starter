@@ -1,5 +1,5 @@
-var mongoose = require('../../../shared/utils/mongoose');
-var logger = require('../../utils/logger.js');
+var mongoose = require('_local/utils/mongoose');
+var logger = require('_local/utils/logger.js');
 module.exports = function(next) {
   var app = this;
 
