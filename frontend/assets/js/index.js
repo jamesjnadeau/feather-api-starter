@@ -2,11 +2,9 @@ console.log('Start.');
 require('bootstrap/dist/js/bootstrap.js');
 var notify = require('notifyUtil');
 
-var feathers = require('feathers-client');
+var service = require('_local/assets/js/utils/serviceGetter')(window.API_URL);
 
-var app = feathers(window.API_URL)
-  .configure(feathers.jquery());
-var testService = app.service('content');
+var testService = service('content');
 
 /* test create
 testService.on('created', function(todo) {
@@ -21,9 +19,9 @@ testService.create({
 });
 */
 
-testService.find(function(error, values) {
+testService.count(function(count) {
   console.log(error, values);
   values.forEach(function(value) {
-    notify(value.type, JSON.stringify(value.fields), 'success');
+    notify('Content Count', JSON.stringify(count), 'success');
   })
 });

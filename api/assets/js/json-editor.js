@@ -2,7 +2,8 @@
 var notify = require('notifyUtil');
 var errorUtil = require ('errorUtil');
 var JSONEditor = require('jsoneditor/dist/jsoneditor.js');
-var twbsPagination = require('twbs-pagination/')
+var twbsPagination = require('twbs-pagination/');
+
 
 module.exports = function (feathers) {
   $(function() {
@@ -90,14 +91,7 @@ module.exports = function (feathers) {
 
       modelSelected: function(event) {
         this.selectedModel = event.target.text;
-        this.service = feathers.service(this.selectedModel);
-        this.service.count = function(params, callback) {
-          this.request({
-            url: this.makeUrl(params, 'count'),
-            method: 'GET'
-          }).then(callback);
-        };
-        console.log('here', this.service);
+        this.service = feathers(this.selectedModel);
         this.addRecordButton.removeClass('disabled');
         this.loadIds();
         this.$limit = 10;

@@ -2,10 +2,6 @@
 require('bootstrap/dist/js/bootstrap.js');
 require('jquery-ui');
 
+var service = require('_local/assets/js/utils/serviceGetter')(window.location.origin);
 
-var feathers = require('feathers-client');
-
-var quil = feathers(location.origin)
-  .configure(feathers.jquery());
-
-require('./json-editor.js')(quil);
+require('./json-editor.js')(service);
