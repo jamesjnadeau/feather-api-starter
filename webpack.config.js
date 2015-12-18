@@ -8,7 +8,7 @@ var jade = require('jade');
 //Plugins
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-var hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmw&timeout=20000&reload=true&overlay=true';
+//var hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmw&timeout=20000&reload=true&overlay=true';
 
 //Globals - used across all packs
 var resolve = {
@@ -48,8 +48,8 @@ module.exports = [
       ],
     },
     entry: {
-      'main': [__dirname+'/api/assets/js/index.js', hotMiddlewareScript],
-      'styles': [__dirname+'/api/assets/css/index.js', hotMiddlewareScript],
+      'main': [__dirname+'/api/assets/js/index.js'], //, hotMiddlewareScript
+      'styles': [__dirname+'/api/assets/css/index.js'], //, hotMiddlewareScript
     },
     output: {
       filename: "[name].js",

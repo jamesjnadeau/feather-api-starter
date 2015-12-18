@@ -19,17 +19,16 @@ module.exports = function(source) {
   this.addDependency(templatePath);
   var template = jade.compileFile(templatePath, {pretty: false});
 
-/*
-  var connection = mongoose();
-  connection.on('error', function(err) {
-    console.error('mongo connection error: %s', err.message || err);
-  });
-
-
-  connection.on('open', function() {
-    console.info('mongo connected');
-  });
-*/
+  if(typeof self.emitFile === 'undefined') {
+    //Not running from webpack, we need to define our own emitFile function to use later
+    var webpackConfig = require('../webpack.config.js')[1];
+    var buildPath = webpackConfig.output.path;
+    self.emitFile = function(outputFileName, content) {
+      var output_path = pathUtil.join(buildPath, outputFileName);
+      console.log('output path', output_path);
+      fs.writeSync(output_path, content);
+    };
+  }
 
   async.waterfall([
     function getContent(done) {
