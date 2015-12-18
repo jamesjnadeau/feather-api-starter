@@ -1,4 +1,4 @@
-queue = require('../../../shared/utils/queue');
+queue = require('acme/queue');
 
 module.exports = function() {
   var app = this;

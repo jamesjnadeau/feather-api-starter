@@ -1,6 +1,7 @@
 .env
 
-node_modules*
+node_modules/*
+!node_modules/acme
 
 api/public/*
 frontend/built/*

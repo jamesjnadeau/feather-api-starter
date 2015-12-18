@@ -6,16 +6,17 @@
   "scripts": {
     "start": "npm run build && pm2 start pm2-production.json",
     "build": "node_modules/.bin/webpack --progress --colors -d -p",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "node_modules/.bin/webpack --progress --colors -d --watch",
     "pm2": "pm2",
     "allstop": "pm2 delete all",
     "api": "pm2 start ./api/bin/www",
-    "api:stop": "pm2 stop ./api/bin/www",
-    "frontend:watch": "pm2 start ./frontend/dev-sever.js",
+    "api:stop": "pm2 delete ./api/bin/www",
+    "frontend": "pm2 start ./frontend/dev-sever.js",
+    "frontend:stop": "pm2 delete ./frontend/dev-sever.js",
     "dev": "pm2 start pm2-development.json && npm run dev:logs",
     "dev:logs": "pm2 logs",
-    "dev:stop": "pm2 delete pm2-development.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev:stop": "pm2 delete pm2-development.json"
   },
   "author": "James J Nadeau",
   "dependencies": {
