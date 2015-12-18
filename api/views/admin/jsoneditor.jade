@@ -2,21 +2,26 @@ extends ../layout
 
 block content
   h1 JSON EDITOR
-  .row.json-model-editor
-    .col-md-2
-      ul.nav.nav-pills.nav-stacked(id="model-selector")
-        each model in models
-          li
-            a(href="javascript:void(0);") #{model}
-    .col-md-3
-      a.btn.btn-default.btn-small.btn-block.disabled(id="add-record" href="javascript:void(0);") Add
-      ul.nav.nav-pills.nav-stacked(id="id-selector")
-      
-          
-    .col-md-7
-      .btn-toolbar.pull-right
-        .btn.btn-danger.delete-button Delete
-        .btn.btn-warning.reload-button Reload
-        .btn.btn-primary.save-button Save
-      h2#editor-record-name Nothing loaded
-      #editor-container
+  .json-model-editor
+    .row
+      .col-md-2
+        ul.nav.nav-pills.nav-stacked(id="model-selector")
+          each model in models
+            li
+              a(href="javascript:void(0);") #{model}
+      .col-md-3
+        a.btn.btn-default.btn-small.btn-block.disabled(id="add-record" href="javascript:void(0);") Add
+        ul.nav.nav-pills.nav-stacked(id="id-selector")
+        
+            
+      .col-md-7
+        .btn-toolbar.pull-right
+          .btn.btn-danger.delete-button Delete
+          .btn.btn-warning.reload-button Reload
+          .btn.btn-primary.save-button Save
+        h2#editor-record-name Nothing loaded
+        #editor-container
+    hr
+    .row
+      .col-md-8.col-md-offset-1
+        ul.pager.pagination-sm

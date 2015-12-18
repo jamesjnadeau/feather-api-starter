@@ -2,6 +2,7 @@
 var notify = require('notifyUtil');
 var errorUtil = require ('errorUtil');
 var JSONEditor = require('jsoneditor/dist/jsoneditor.js');
+var twbsPagination = require('twbs-pagination/')
 
 module.exports = function (feathers) {
   $(function() {
@@ -32,6 +33,7 @@ module.exports = function (feathers) {
         this.saveButton = this.element.find('.save-button');
         this.deleteRecordButton = this.element.find('.delete-button');
         this.reloadRecordButton = this.element.find('.reload-button');
+        this.pager = this.element.find('.pager');
 
         // bind any initial events we need to
         this._on( this.modelSelectors, {
@@ -58,6 +60,7 @@ module.exports = function (feathers) {
       _refresh: function() {
         // trigger a callback/event
         //this._trigger( "change" );
+
       },
 
 
@@ -88,8 +91,17 @@ module.exports = function (feathers) {
       modelSelected: function(event) {
         this.selectedModel = event.target.text;
         this.service = feathers.service(this.selectedModel);
+        this.service.count = function(params, callback) {
+          this.request({
+            url: this.makeUrl(params, 'count'),
+            method: 'GET'
+          }).then(callback);
+        };
+        console.log('here', this.service);
         this.addRecordButton.removeClass('disabled');
         this.loadIds();
+        this.$limit = 10;
+        this.$skip = 0;
       },
 
       recordSelectorHTML: function(record) {
@@ -115,12 +127,35 @@ module.exports = function (feathers) {
       loadIds: function() {
         var self = this;
         this.idSelector.empty();
-        this.service.find({}, function(err, records) {
-          self.currentRecords = records;
-          records.forEach(function(record) {
-            self.addRecordSelector(record);
+        query = {
+          $limit: this.$limit,
+          $skip: this.$skip,
+        };
+        console.log('query', query);
+        //check total results count first
+        this.service.count(query, function(result) {
+          var count = result.count;
+          totalPages = parseInt(count / self.$limit)+1;
+          console.log('count', count, totalPages);
+          self.pager.twbsPagination({
+            totalPages: totalPages,
+            visiblePages: 5,
+            onPageClick: function (event, page) {
+              console.log('Page', page);
+              self.$skip = page * self.$limit - self.$limit;
+              self.loadIds();
+            }
           });
-        });
+          if(count) { //if there are results, get them
+            self.service.find(query, function(err, records) {
+              self.currentRecords = records;
+              records.forEach(function(record) {
+                self.addRecordSelector(record);
+              });
+            });
+          }
+        })
+
       },
 
       loadRecord: function(id) {

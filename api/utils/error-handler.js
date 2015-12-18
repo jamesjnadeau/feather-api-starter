@@ -1,3 +1,4 @@
+Error.stackTraceLimit = Infinity;
 module.exports = function() {
   var app = this;
 
@@ -13,9 +14,9 @@ module.exports = function() {
     if(req.xhr) {
       if (app.get('env') === 'development') {
         var send = {message: err.message, error: err };
-        res.json(err.status || 500, send);
+        res.status(err.status || 500).json(send);
       } else {
-        res.json(err.status || 500, {message: err.message, error: {} });
+        res.status(err.status || 500).json({message: err.message, error: {} });
       }
     } else {
       res.status(err.status || 500);
