@@ -1,7 +1,7 @@
 .env
 
 node_modules/*
-!node_modules/acme
+!node_modules/_local
 
 api/public/*
 frontend/built/*

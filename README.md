@@ -61,5 +61,7 @@ rebuild and page refresh for you. Here's a quick list of tips:
 1. [localhost:8000 Kue UI - used to see background processing jobs.](http://localhost:8000)
 1. Keep in mind, CORS is keep, take a loot at `api/config/initializers/##-corser` to debug
 any issues you might have made for yourself.
+1. `node_modules/_local` contains code that is used in both the api and the frontend
+generation. Things like models, the static content loader, and shared frontend code.
 
 ## Design Goals
