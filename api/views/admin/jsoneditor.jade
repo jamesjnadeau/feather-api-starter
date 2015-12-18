@@ -9,9 +9,14 @@ block content
           li
             a(href="javascript:void(0);") #{model}
     .col-md-3
+      a.btn.btn-default.btn-small.btn-block.disabled(id="add-record" href="javascript:void(0);") Add
       ul.nav.nav-pills.nav-stacked(id="id-selector")
+      
           
     .col-md-7
-      .btn.btn-primary.pull-right(id="save-button") Save
+      .btn-toolbar.pull-right
+        .btn.btn-danger.delete-button Delete
+        .btn.btn-warning.reload-button Reload
+        .btn.btn-primary.save-button Save
       h2#editor-record-name Nothing loaded
       #editor-container

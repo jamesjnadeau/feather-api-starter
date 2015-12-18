@@ -4,7 +4,6 @@ var errorUtil = require ('errorUtil');
 var JSONEditor = require('jsoneditor/dist/jsoneditor.js');
 
 module.exports = function (feathers) {
-  console.log('here');
   $(function() {
     // the widget definition, where "custom" is the namespace,
     // "colorize" the widget name
@@ -20,16 +19,19 @@ module.exports = function (feathers) {
 
       // the constructor
       _create: function() {
-        //this.element - is the selected element that this widget was called on
+        //this.element - is the selected element self this widget was called on
         this.editorContainer = this.element.find('#editor-container').get(0);
         //init the editor
         this.editor = new JSONEditor(this.editorContainer);
         this.selectedId = false;
         //pre-select a bunch of elements for use later.
         this.modelSelectors = this.element.find('#model-selector li a');
-        this.idSelector = $('#id-selector');
-        this.recordName = $('#editor-record-name');
-        this.saveButton = $('#save-button');
+        this.idSelector = this.element.find('#id-selector');
+        this.recordName = this.element.find('#editor-record-name');
+        this.addRecordButton = this.element.find('#add-record');
+        this.saveButton = this.element.find('.save-button');
+        this.deleteRecordButton = this.element.find('.delete-button');
+        this.reloadRecordButton = this.element.find('.reload-button');
 
         // bind any initial events we need to
         this._on( this.modelSelectors, {
@@ -38,6 +40,17 @@ module.exports = function (feathers) {
         this._on( this.saveButton, {
           click: "save"
         });
+        this._on( this.addRecordButton, {
+          click: "add"
+        });
+        this._on( this.deleteRecordButton, {
+          click: "deleteRecord"
+        });
+        this._on( this.reloadRecordButton, {
+          click: "reloadRecord"
+        });
+
+        //Call refresh
         this._refresh();
       },
 
@@ -55,7 +68,7 @@ module.exports = function (feathers) {
         //undo anything we did
       },
 
-      // _setOptions is called with a hash of all options that are changing
+      // _setOptions is called with a hash of all options self are changing
       // always refresh when changing options
       _setOptions: function() {
         // _super and _superApply handle keeping the right this-context
@@ -63,7 +76,7 @@ module.exports = function (feathers) {
         this._refresh();
       },
 
-      // _setOption is called for each individual option that is changing
+      // _setOption is called for each individual option self is changing
       _setOption: function( key, value ) {
         /*/ prevent invalid color values
         if ( /red|green|blue/.test(key) && (value < 0 || value > 255) ) {
@@ -75,53 +88,126 @@ module.exports = function (feathers) {
       modelSelected: function(event) {
         this.selectedModel = event.target.text;
         this.service = feathers.service(this.selectedModel);
-        this.loadIds()
+        this.addRecordButton.removeClass('disabled');
+        this.loadIds();
+      },
+
+      recordSelectorHTML: function(record) {
+        var html = '<li><a href="javascript:void(0);" >';
+        if(typeof record.name !== 'undefined') {
+          html += '<b>'+record.name+'</b><br>';
+        }
+        html += record._id+'</a></li>';
+        return html;
+      },
+
+      addRecordSelector: function(record) {
+        var html = this.recordSelectorHTML(record);
+        var idElement = $(html);
+        this.idSelector.append(idElement);
+        this._on(idElement, {
+          click: function() {
+            this.loadRecord(record._id);
+          } //'loadRecord'
+        });
       },
 
       loadIds: function() {
-        var that = this;
+        var self = this;
         this.idSelector.empty();
         this.service.find({}, function(err, records) {
-          that.currentRecords = records;
+          self.currentRecords = records;
           records.forEach(function(record) {
-            var html = '<li><a href="javascript:void(0);" >';
-            if(typeof record.name !== 'undefined') {
-              html += '<b>'+record.name+'</b><br>';
-            }
-            html += record._id+'</a></li>'
-            var idElement = $(html);
-            that.idSelector.append(idElement);
-            that._on(idElement, {
-              click: function() {
-                that.loadRecord(record._id);
-              } //'loadRecord'
-            })
+            self.addRecordSelector(record);
           });
         });
       },
 
       loadRecord: function(id) {
-        var that = this;
-        this.selectedId = id
+        var self = this;
+        this.selectedId = id;
         this.service.find({_id: this.selectedId}, function(err, records) {
           var record = records[0];
-          that.editor.set(record);
-          var name = that.selectedId;
+          self.editor.set(record);
+          var name = self.selectedId;
           if(typeof record.name !== 'undefined' ) {
             name = record.name +' | '+ name;
           }
-          that.recordName.text(name);
+          self.recordName.text(name);
         });
       },
 
       save: function(event) {
         var record = this.editor.get();
-        this.service.update(this.selectedId, record, function(xhrProblem) {
-          errorUtil(xhrProblem, function() {
-            notify('Record Saved', 'phew! that was close', 'success');
+        if(this.selectedId && record._id) { //Update
+          this.service.update(record._id, record, function(xhrProblem) {
+            errorUtil(xhrProblem, function(err) {
+              if(!err)
+                notify('Record Saved', 'phew! self was close', 'success');
+            });
           });
-        });
+        } else { //add
+          this.addRecord(record);
+        }
+
       },
+
+      addRecord: function(record) {
+        var self = this;
+        this.selectedId = false;
+        this.recordName.text(record.name);
+        this.service.create(record, function(xhrProblem, record) {
+            errorUtil(xhrProblem, function(err) {
+              if(!err) {
+                notify('New Record Created',
+                  'you passed the validation! If you meant to or not', 'info');
+                //refresh currently loaded ids - deals with new record not showing
+                self.loadIds();
+              } else { //add errored fields to editor
+                if(typeof err.error !== 'undefined') {
+                  if(typeof err.error.errors !== 'undefined') {
+                    var record = self.editor.get();
+                    for(var index in err.error.errors) {
+                      if(typeof record[index] === 'undefined') {
+                        record[index] = null;
+                      }
+                    }
+                    self.editor.set(record);
+                  }
+                }
+              }
+            });
+        })
+      },
+
+      add: function(event) {
+        var record = {
+          name: 'New '+this.selectedModel,
+        };
+        this.editor.set(record);
+        this.addRecord(record);
+      },
+
+      deleteRecord: function(event) {
+        if(this.selectedId) {
+          this.service.remove(this.selectedId, function(xhrProblem) {
+            errorUtil(xhrProblem, function(err) {
+              if(!err) {
+                notify('Record Deleted',
+                  'RIP, you won\'t be missed.', 'info');
+                //refresh currently loaded ids - deals with new record not showing
+                self.loadIds();
+              }
+            });
+          });
+        }
+      },
+
+      reloadRecord: function(event) {
+        if(this.selectedId) {
+          this.loadRecord(this.selectedId);
+        }
+      }
     });
 
     // initialize with default options

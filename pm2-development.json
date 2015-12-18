@@ -7,13 +7,15 @@
       "restart_delay": "5000",
       "ignore_watch": [
         "api/assets",
-        "api/public"
+        "api/public",
+        "api/views",
+        "node_modules/_local/assets"
       ],
     },
     {
       "name"        : "frontend",
       "script"      : "./bin/dev-frontend",
-      "watch"       : ["frontend", "node_modules/_local/assets"],
+      "watch"       : ["frontend"],
       "restart_delay": "5000",
       "ignore_watch": [
         "frontend/assets",
