@@ -10,3 +10,7 @@
 | REDIS_PREFIX  | ('project-name') the name of the redis prefix used |
 | MONGO_URI  | (mongodb://localhost/{packageName}) the db to connect to.  |
 | ALLOWED_ORIGINS  | (http://localhost:8081) The CORS origins allowed, see corser package and initializer  |
+| KUE_PORT  | () Setting this will run the kue UI/app on the specified port, not setting this does not start the app.  |
+|   |   |
+|   |   |
+|   |   |

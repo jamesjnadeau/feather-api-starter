@@ -1,22 +1,5 @@
-{
-  "apps" : [
-    {
-      "name"        : "api",
-      "script"      : "./api/bin/www",
-      "node_args"   : "--harmony",
-      "merge_logs"  : true,
-      "cwd"         : "/this/is/a/path/to/start/script",
-      "env": {
-        "NODE_ENV": "development",
-        "AWESOME_SERVICE_API_TOKEN": "xxx"
-      },
-      "env_production" : {
-         "NODE_ENV": "production"
-      },
-      "env_staging" : {
-         "NODE_ENV" : "staging",
-         "TEST"     : true
-      }
-    },
-  ]
-}
+"apps" : [
+  {
+    "name"        : "api",
+    "script"      : "./api/bin/www",
+  },
