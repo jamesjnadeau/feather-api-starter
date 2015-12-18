@@ -3,7 +3,7 @@ var logger = require('_local/utils/logger.js');
 module.exports = function(next) {
   var app = this;
 
-  var connection = mongoose();
+  var connection = mongoose.connection;
 
   connection.on('error', function(err) {
     logger.error('mongo connection error: %s', err.message || err);

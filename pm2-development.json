@@ -2,7 +2,7 @@
   "apps" : [
     {
       "name"        : "api",
-      "script"      : "./api/bin/www",
+      "script"      : "./bin/www",
       "watch"       : ["api", "node_modules/_local"],
       "restart_delay": "5000",
       "ignore_watch": [
@@ -12,8 +12,8 @@
     },
     {
       "name"        : "frontend",
-      "script"      : "./frontend/dev-server.js",
-      "watch"       : ["frontend", "node_modules/_local"],
+      "script"      : "./bin/dev-frontend",
+      "watch"       : ["frontend", "node_modules/_local/assets"],
       "restart_delay": "5000",
       "ignore_watch": [
         "frontend/assets",

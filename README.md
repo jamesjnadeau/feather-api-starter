@@ -39,7 +39,7 @@ to streamlining the admin workflows and automating processes and retention strat
 
 ## Development
 
-make sure you have redis/mongo running and ready.
+Make sure you have redis/mongo running and ready on standard ports. Set up `npm completion` too!
 
 Get the dependencies: `npm install --dev`
 
