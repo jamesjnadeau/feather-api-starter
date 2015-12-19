@@ -12,7 +12,7 @@
 | REDIS_MAXAGE  | ('24 * 60 * 60 * 1000') the max age of a record  |
 | REDIS_PREFIX  | ('project-name') the name of the redis prefix used |
 | MONGO_URI  | (mongodb://localhost/{packageName}) the db to connect to.  |
-| ALLOWED_ORIGINS  | (http://localhost:8081) The CORS origins allowed, see corser package and initializer  |
+| ALLOWED_ORIGINS  | (http://localhost:8081&#124;http://localhost:8082) The CORS origins allowed, see corser package and initializer, should contain the staging and frontend urls. Note the use of the pipe char &#124; to seperate multiple origins.   |
 | KUE_PORT  | () Setting this will run the kue UI/app on the specified port, not setting this does not start the app.  |
 |   |   |
 |   |   |
