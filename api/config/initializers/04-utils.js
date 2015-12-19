@@ -6,7 +6,10 @@ var bodyParser = require('body-parser');
 //Express logging
 var log4js = require('log4js');
 var logger = log4js.getLogger();
-var connectLogger = log4js.connectLogger(logger, { level: 'auto' });
+var connectLogger = log4js.connectLogger(logger, {
+  level: 'auto',
+  format: ':method :status :url in :response-time ms'
+});
 
 module.exports = function() {
   var app = this;

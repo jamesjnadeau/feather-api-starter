@@ -11,14 +11,4 @@ testService.count({}, function(count) {
   console.log('Content', JSON.stringify(count));
 });
 
-/*
- * Content Editor
- */
-require('ContentTools/build/content-tools.js');
-$(function() {
-  editor = window.ContentTools.EditorApp.get();
-  editor.init('*[data-editable]', 'data-name');
-  editor.bind('save', function (regions, calledBy) {
-    console.log(regions, calledBy);
-  });
-})
+require('./contentTools.js')
