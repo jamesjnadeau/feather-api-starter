@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-//Loade .env file
+//Load .env file
 require('dotenv').load();
 
-var open = require("open");
+
 var WebpackDevServer = require("webpack-dev-server");
 var webpack = require("webpack");
 var webpackConfig = require(process.env.WEBPACK_CONFIG ? process.env.WEBPACK_CONFIG : '../webpack.config');
@@ -49,10 +49,5 @@ var port = process.env.PORT || 8081;
 server.listen(port, "localhost", function() {
   var url = 'http://localhost:'+port+'/webpack-dev-server/';
   console.log('Listening on '+url);
-  //it would be nice to be able to launch a browser after the first compiler
-  //however this does not appear to be available, so this will do for now...
-  setTimeout(function() {
-    //open(url);
-  }, 2000)
 });
 // server.close();

@@ -1,0 +1,41 @@
+#!/usr/bin/env node
+//Load .env file
+require('dotenv').load();
+var figlet = require('figlet');
+
+//Start web manager
+pm2WebApp = require('pm2-web/server/app');
+var pm2web = new PM2Web({});
+pm2web.start();
+
+var open = require("open");
+setTimeout(function() {
+  var url;
+
+  figlet.text('Dev Started!', {
+    font: 'Crawford'}, console.log);
+  //Frontend
+  url = 'http://localhost:'+process.env.FRONTEND_PORT+'/webpack-dev-server/';
+  open(url);
+
+  //Staging
+  url = 'http://localhost:'+process.env.STAGING_PORT;
+  open(url);
+
+  //Api
+  open(process.env.API_URL);
+
+  //Kue
+  if(process.env.KUE_PORT) {
+    url = 'http://localhost:'+process.env.KUE_PORT;
+    open(url);
+  } else {
+    console.log('env var KUE_PORT not set, the kue-ui will not be availbe until it is set and the process is restarted.')
+  }
+
+  //pm2-web
+  url = 'http://localhost:9000';
+  open(url);
+
+
+}, 10000)

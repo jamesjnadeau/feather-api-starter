@@ -5,7 +5,6 @@ require('dotenv').load();
 var http = require('http');
 var send = require('send');
 var url = require('url');
-var open = require("open");
 var port = process.env.STAGING_PORT || 8082;
 var app = http.createServer(function(req, res){
   // your custom error-handling logic:
@@ -37,5 +36,3 @@ var app = http.createServer(function(req, res){
 }).listen(port);
 var host = 'http://localhost:'+port;
 console.log('Listening on '+host);
-//launch browser on next tick
-open(host);

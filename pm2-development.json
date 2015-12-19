@@ -21,10 +21,19 @@
         "frontend/assets",
         "frontend/built",
         "frontend/content",
-        //this is needed until
+        //need to convert content loader to plugin to not have this
+        //then watch and trigger rebuild on view template change
         //"frontend/views",
         "frontend/layouts",
       ],
+    },
+    {
+      "name"        : "staging",
+      "script"      : "./bin/dev-staging",
+    },
+    {
+        "name"        : "manager",
+        "script"      : "./bin/dev-manager",
     },
   ]
 }
