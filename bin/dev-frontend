@@ -52,7 +52,7 @@ server.listen(port, "localhost", function() {
   //it would be nice to be able to launch a browser after the first compiler
   //however this does not appear to be available, so this will do for now...
   setTimeout(function() {
-    open(url);
+    //open(url);
   }, 2000)
 });
 // server.close();

@@ -15,13 +15,14 @@
     {
       "name"        : "frontend",
       "script"      : "./bin/dev-frontend",
-      "watch"       : ["frontend"],
+      "watch"       : ["frontend", ],
       "restart_delay": "5000",
       "ignore_watch": [
         "frontend/assets",
         "frontend/built",
         "frontend/content",
-        "frontend/views",
+        //this is needed until
+        //"frontend/views",
         "frontend/layouts",
       ],
     },

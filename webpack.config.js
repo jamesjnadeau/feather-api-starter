@@ -65,7 +65,7 @@ module.exports = [
       new webpack.ProvidePlugin({
         $: "jquery",
         jQuery: "jquery",
-        "window.jQuery": "jquery"
+        "window.jQuery": "jquery",
       }),
       //webpack-hot-middleware
       new webpack.optimize.OccurenceOrderPlugin(),

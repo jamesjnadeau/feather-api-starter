@@ -4,6 +4,7 @@ var errorUtil = require ('errorUtil');
 var JSONEditor = require('jsoneditor/dist/jsoneditor.js');
 var twbsPagination = require('twbs-pagination/');
 
+var defaultLimit = 10;
 
 module.exports = function (feathers) {
   $(function() {
@@ -21,6 +22,7 @@ module.exports = function (feathers) {
 
       // the constructor
       _create: function() {
+        this.$limit = defaultLimit;
         //this.element - is the selected element self this widget was called on
         this.editorContainer = this.element.find('#editor-container').get(0);
         //init the editor
@@ -90,11 +92,12 @@ module.exports = function (feathers) {
       },
 
       modelSelected: function(event) {
+        event.stopPropagation();
         this.selectedModel = event.target.text;
         this.service = feathers(this.selectedModel);
         this.addRecordButton.removeClass('disabled');
         this.loadIds();
-        this.$limit = 10;
+        this.$limit = defaultLimit;
         this.$skip = 0;
       },
 
@@ -112,7 +115,8 @@ module.exports = function (feathers) {
         var idElement = $(html);
         this.idSelector.append(idElement);
         this._on(idElement, {
-          click: function() {
+          click: function(evemt) {
+            event.stopPropagation();
             this.loadRecord(record._id);
           } //'loadRecord'
         });
@@ -131,13 +135,17 @@ module.exports = function (feathers) {
           var count = result.count;
           totalPages = parseInt(count / self.$limit)+1;
           console.log('count', count, totalPages);
+          var initPageSet = false;
           self.pager.twbsPagination({
             totalPages: totalPages,
             visiblePages: 5,
             onPageClick: function (event, page) {
               console.log('Page', page);
               self.$skip = page * self.$limit - self.$limit;
-              self.loadIds();
+              if(initPageSet) {
+                self.loadIds();
+              }
+              initPageSet = true;
             }
           });
           if(count) { //if there are results, get them

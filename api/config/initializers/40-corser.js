@@ -8,9 +8,7 @@ module.exports = function() {
   test.push(apiUrl);
   var options = {
     origins: function(origin, callback) {
-      //console.log(origin, origin == test, test);
-      console.log(test.indexOf(origin) === -1);
-      console.log(origin, '?', test);
+      //console.log(origin, '?', test);
       if(test.indexOf(origin) !== -1) {
         callback(null, true);
       } else {

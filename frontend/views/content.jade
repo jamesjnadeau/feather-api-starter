@@ -1,7 +1,16 @@
 extends ../layouts/default
 
 block content
-  -var title = fields.title || 'Missing Title field';
-  h1 #{title}
+  div
+    -var title = fields.title || '<h1>Missing Title field</h1>';
+    div(data-editable data-name="title") 
+      | !{title}
+    hr
+    -var body = fields.body || '<p>No body field yet</p>';
+    div(data-editable data-name="body") 
+      | !{body}
+
+  hr
+  h3 Debug
   -var temp = JSON.stringify(fields, false, 2);
   pre !{temp}
