@@ -14,3 +14,8 @@ block content
   h3 Debug
   -var temp = JSON.stringify(fields, false, 2);
   pre !{temp}
+
+block scripts
+  script.
+    window.CONTENT_ID = '!{_id}';
+    window.CONTENT_TYPE = '!{type}'

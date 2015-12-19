@@ -11,4 +11,4 @@ testService.count({}, function(count) {
   console.log('Content', JSON.stringify(count));
 });
 
-require('./contentTools.js')
+require('./contentTools.js')(service)

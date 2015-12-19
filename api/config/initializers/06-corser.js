@@ -6,9 +6,11 @@ module.exports = function() {
   test = test.split('|');
   var apiUrl = process.env.API_URL || 'http://localhost:8080';
   test.push(apiUrl);
+  var methods = corser.simpleMethods.concat(["PUT", "DELETE", "PATCH"]);
   var options = {
+    methods: methods,
     origins: function(origin, callback) {
-      //console.log(origin, '?', test);
+      console.log(origin, '?', test);
       if(test.indexOf(origin) !== -1) {
         callback(null, true);
       } else {
