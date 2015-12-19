@@ -2,6 +2,7 @@
 //Load .env file
 require('dotenv').load();
 var figlet = require('figlet');
+var boom = require('_local/utils/boom')
 
 //Start web manager
 pm2WebApp = require('pm2-web/server/app');
@@ -12,8 +13,7 @@ var open = require("open");
 setTimeout(function() {
   var url;
 
-  figlet.text('Dev Started!', {
-    font: 'Crawford'}, console.log);
+  boom('Dev Started!');
   //Frontend
   url = 'http://localhost:'+process.env.FRONTEND_PORT+'/webpack-dev-server/';
   open(url);
