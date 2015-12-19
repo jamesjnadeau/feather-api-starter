@@ -34,7 +34,7 @@ var server = new WebpackDevServer(compiler, {
 
   // webpack-dev-middleware options
   quiet: true,
-  noInfo: true,
+  noInfo: false,
   lazy: false,
   //filename: "bundle.js",
   watchOptions: {
