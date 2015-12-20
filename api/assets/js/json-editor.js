@@ -129,9 +129,9 @@ module.exports = function (feathers) {
           $limit: this.$limit,
           $skip: this.$skip,
         };
-        console.log('query', query);
         //check total results count first
         this.service.count(query, function(result) {
+          console.log(result);
           var count = result.count;
           totalPages = parseInt(count / self.$limit)+1;
           console.log('count', count, totalPages);
@@ -154,7 +154,7 @@ module.exports = function (feathers) {
               records.forEach(function(record) {
                 self.addRecordSelector(record);
               });
-            });
+            }).catch(errorUtil);
           }
         })
 

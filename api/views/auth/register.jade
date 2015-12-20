@@ -2,8 +2,8 @@ extends ../layout
 
 block content
 
-      h1.text-center Login
-      form.form-horizontal(action="/auth/login", method="post")
+      h1.text-center Register
+      form.form-horizontal(action="register", method="post")
           .form-group
             label.control-label.col-sm-4(for="username") Email:
             .col-sm-4
@@ -12,6 +12,10 @@ block content
             label.control-label.col-sm-4(for="password") Password:
             .col-sm-4
               input.form-control(type="password" name="password" id="password" placeholder="Password")
+          .form-group
+            label.control-label.col-sm-4(for="confirmPassword") Confirm:
+            .col-sm-4
+              input.form-control(type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password")
           .form-group
             .col-sm-4.col-sm-offset-4
               input.form-control(type="submit" value="Log In")
