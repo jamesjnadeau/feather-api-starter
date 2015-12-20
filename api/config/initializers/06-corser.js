@@ -3,7 +3,7 @@ corser = require("corser");
 module.exports = function() {
   var app = this;
   var test = process.env.ALLOWED_ORIGINS || 'http://localhost:8081';
-  test = test.split('|');
+  test = test.split('~');
   var apiUrl = process.env.API_URL || 'http://localhost:8080';
   test.push(apiUrl);
   var methods = corser.simpleMethods.concat(["PUT", "DELETE", "PATCH"]);

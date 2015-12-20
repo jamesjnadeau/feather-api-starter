@@ -1,8 +1,8 @@
 console.log('Start.');
 require('bootstrap/dist/js/bootstrap.js');
 var notify = require('notifyUtil');
-var apiURL = window.API_URL;
-var service = require('_local/assets/js/utils/serviceGetter')(window.API_URL);
+
+var service = require('_local/assets/js/utils/serviceGetter')(env.API_URL);
 var testService = service('content');
 
 //Test if the api is accesible by getting the content count

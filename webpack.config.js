@@ -19,6 +19,10 @@ var resolve = {
   },
 };
 
+//Sanitized Env variables used throughout frontend Js
+sanitizedEnv = JSON.stringify(require('_local/utils/sanitizedEnv'));
+console.log('webpack', sanitizedEnv);
+
 module.exports = [
 /*
  * Api
@@ -113,6 +117,10 @@ module.exports = [
         $: "jquery",
         jQuery: "jquery",
         "window.jQuery": "jquery"
+      }),
+      //define ENV variables
+      new webpack.DefinePlugin({
+        'env': sanitizedEnv,
       }),
       //webpack-hot-middleware
       new webpack.optimize.OccurenceOrderPlugin(),
