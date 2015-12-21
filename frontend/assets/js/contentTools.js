@@ -12,7 +12,7 @@ require('ContentTools/build/content-tools.js');
      editor = window.ContentTools.EditorApp.get();
      editor.init('*[data-editable]', 'data-name');
      editor.bind('save', function (regions, calledBy) {
-       console.log(regions, calledBy, this);
+       console.log(regions);
        this.busy(true);
        var id = window.CONTENT_ID;
        var type = window.CONTENT_TYPE;
