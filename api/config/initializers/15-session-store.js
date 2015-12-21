@@ -5,7 +5,7 @@ var normalizeUtil = require('_local/utils/normalize')();
 
 var maxAge = 24 * 60 * 60 * 1000; //24 hours
 var packageName = require('../../../package').name;
-var settings = {
+var redisSettings = {
   host: process.env.REDIS_HOST || 'localhost',
   port: normalizeUtil.port(process.env.REDIS_PORT || '6379'),
   maxAge: process.env.REDIS_MAXAGE || maxAge,
@@ -14,16 +14,18 @@ var settings = {
   saveUninitialized: false,
 };
 
-var settings = {
+var sessionSettings = {
+  //TODO Move these to env vars
   secret: 'y8GgNmWtMujFNcAY0sQf',
   key: 'VS2WnUjlLreAJAwubuJu',
   cookie: { maxAge: maxAge },
+  domain: process.env.COOKIE_DOMAIN  || 'localhost',
   store: false, //this is set below once redis is connected
 }
 
 module.exports = function(next) {
   var app = this;
-  var connection = new RedisStore(settings)
+  var connection = new RedisStore(redisSettings)
 
   connection.on('error', function(err) {
     logger.error('redis connection error: %s', err.message || err);
@@ -33,7 +35,7 @@ module.exports = function(next) {
   connection.on('connect', function() {
     logger.info('redis connected');
     settings.store = connection;
-    app.use(session(settings));
+    app.use(session(sessionSettings));
     next();
   })
 
