@@ -3,7 +3,7 @@ var mongoose = require('_local/utils/mongoose');
 var model = require('_local/models/content');
 var path = require('path');
 var serviceName = __filename.slice(__filename.lastIndexOf(path.sep)+1, module.filename.length -3);
-var feathersCount = require('_local/utils/feathers-count');
+var feathersCount = require('_local/feathers/count');
 var feathersMongoose = require('feathers-mongoose');
 var Proto = require('uberproto');
 

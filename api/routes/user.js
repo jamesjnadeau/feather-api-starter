@@ -1,13 +1,11 @@
 var mongoose = require('_local/utils/mongoose');
 var model = require('_local/models/user');
-var MongooseService = require('feathers-mongoose');
-var feathersCount = require('_local/utils/feathers-count');
 var path = require('path');
 var serviceName = __filename.slice(__filename.lastIndexOf(path.sep)+1, module.filename.length -3);
 
-var feathersCount = require('_local/utils/feathers-count');
 var feathersMongoose = require('feathers-mongoose');
 var Proto = require('uberproto');
+var feathersCount = require('_local/feathers/count');
 
 var MongooseService = feathersMongoose.Service.extend({
   _setup: function(app, path) {
