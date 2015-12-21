@@ -34,7 +34,7 @@ module.exports = function(next) {
 
   connection.on('connect', function() {
     logger.info('redis connected');
-    settings.store = connection;
+    sessionSettings.store = connection;
     app.use(session(sessionSettings));
     next();
   })
