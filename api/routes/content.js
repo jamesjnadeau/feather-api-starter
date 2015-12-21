@@ -16,7 +16,7 @@ var MongooseService = feathersMongoose.Service.extend({
 
     //Count - mostly taken from find, used to get the total count of a query.
     app.get('/' + path + '/count', function(req, res, next) {
-      console.log('here');
+      //TODO Permissions for this?
       feathersCount(self, model, req, res, next);
     });
   }

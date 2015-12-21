@@ -25,18 +25,3 @@ var MongooseService = feathersMongoose.Service.extend({
 var service = Proto.create.call(MongooseService, serviceName,  model, { connection: mongoose });
 
 module.exports = service;
-/*
-module.exports = new MongooseService(serviceName, model, {
-  connection: mongoose,
-  _setup: function(app, path) {
-    var self = this;
-    var model = this.model
-
-    //Add Count - mostly taken from find, used to get the total count of a query.
-    app.get('/' + path + '/count', function(req, res, next) {
-      console.log('here');
-      feathersCount(self, model, req, res, next);
-    });
-  }
-});
-*/
