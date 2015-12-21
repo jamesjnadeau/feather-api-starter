@@ -2,6 +2,7 @@
 ## Environment vars - these are used everywhere
 | Name  | (Default) Description  |
 |---|---|
+| COOKIE_DOMAIN  | (.localhost) the domain used in session cookies, should probably have a . in front to ensure it's matches all sub-domains  |
 | API_URL  | () The url the api will be available on, this needs to be set |
 | API_PORT  | (8080) The port on which to listen for connections  |
 | STAGING_PORT  | (8082) the port the staging server for development runs on.  |
