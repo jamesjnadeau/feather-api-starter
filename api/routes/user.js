@@ -6,15 +6,17 @@ var serviceName = __filename.slice(__filename.lastIndexOf(path.sep)+1, module.fi
 var feathersMongoose = require('feathers-mongoose');
 var Proto = require('uberproto');
 var feathersCount = require('_local/feathers/count');
+var feathersPatch = require('_local/feathers/patch');
 
 var MongooseService = feathersMongoose.Service.extend({
+  patch: feathersPatch,
   _setup: function(app, path) {
     var self = this;
     var model = this.model
 
     //Count - mostly taken from find, used to get the total count of a query.
     app.get('/' + path + '/count', function(req, res, next) {
-      console.log('here');
+      //TODO Permissions for this?
       feathersCount(self, model, req, res, next);
     });
   }
