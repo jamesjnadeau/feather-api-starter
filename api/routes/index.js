@@ -10,8 +10,6 @@ var routes = requireDirectory(module);
 
 module.exports = function(){
   var app = this;
-  //console.log(routes);
-  //console.log(routes);
   for (var route in routes) {
     //console.log(typeof route, route)
     switch(route) {

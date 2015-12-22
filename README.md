@@ -65,3 +65,16 @@ any issues you might have made for yourself.
 generation. Things like models, the static content loader, and shared frontend code.
 
 ## Design Goals
+
+I'd like to use the 18f standards as a starting point
+
+https://playbook.cio.gov/designstandards/
+
+This site needs a brand. Then it needs a content strategy.
+
+-[ ] home page theme
+-[ ] Promotion page theme -
+-[ ] Email template
+-[ ] Team page
+-[ ] Event page
+-[ ] News/blog items/pages
