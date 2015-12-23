@@ -28,4 +28,5 @@ a {
 .ce-element--type-image, .ce-element--type-video {
   margin-left: 10px !important;
   margin-right: 10px !important;
+  margin-bottom: 10px !important;
 }
