@@ -2,6 +2,7 @@ var logger = require('_local/utils/logger');
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
 var normalizeUtil = require('_local/utils/normalize')();
+var cookieParser = require('cookie-parser');
 
 var maxAge = 24 * 60 * 60 * 1000; //24 hours
 var packageName = require('../../../package').name;
@@ -31,13 +32,15 @@ module.exports = function(next) {
   connection.on('error', function(err) {
     logger.error('redis connection error: %s', err.message || err);
     next(err);
-  })
+  });
 
   connection.on('connect', function() {
     logger.info('redis connected');
     sessionSettings.store = connection;
     app.use(session(sessionSettings));
     next();
-  })
+  });
+
+  app.use(cookieParser(process.env.SESSION_SECRET || 'y8GgNmWtMujFNcAY0sQf'));
 
 };

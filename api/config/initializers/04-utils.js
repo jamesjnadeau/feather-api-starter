@@ -1,6 +1,7 @@
 
 var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
+var sanitizedEvn = require('_local/utils/sanitizedEnv');
 
 //Express logging
 var log4js = require('log4js');
@@ -18,4 +19,11 @@ module.exports = function() {
   app.use(bodyParser.json());
   // Turn on URL-encoded parser for REST services
   app.use(bodyParser.urlencoded({ extended: true }));
+
+  //define locals for template
+  app.locals.env = sanitizedEvn;
+  app.use(function(req, res, next){
+    res.locals.req = req;
+    next();
+  });
 };

@@ -2,8 +2,19 @@ var express = require('express');
 var router = express.Router();
 var logger = require('_local/utils/logger');
 var fs = require('fs');
+var authUtil = require('_local/utils/auth');
 
-/* GET index page. */
+
+/*
+Only Admins allowed!!!!
+*/
+router.use(authUtil.isAdmin);
+
+/*
+JSON Editor
+NOTE this relies on the api,
+so if you are having problems, check the api's permissions
+*/
 router.get('/jsoneditor', function(req, res, next) {
   //get a list of all the models we have...
   //var models = ['content', 'user'];
@@ -17,6 +28,10 @@ router.get('/jsoneditor', function(req, res, next) {
     models: models
   });
 });
+
+router.get('/content/create/:type', function(req, res, next) {
+  res.json('hi');
+})
 
 //this should be last
 module.exports = router;

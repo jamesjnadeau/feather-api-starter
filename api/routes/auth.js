@@ -3,10 +3,11 @@ var router = express.Router();
 var logger = require('_local/utils/logger');
 var User = require('_local/models/user');
 var passport = require('passport');
+var authUtil = require('_local/utils/auth');
 
-var buckets = require('_local/utils/aws-buckets')
+var buckets = require('_local/utils/aws-buckets');
 var fileService = require('_local/services/file');
-var userService = require('_local/services/file');
+var userService = require('_local/services/user');
 var crypto = require('crypto');
 
 router.get('/login', function(req, res, next) {
@@ -16,6 +17,13 @@ router.get('/login', function(req, res, next) {
 router.post('/login', passport.authenticate('local'), function(req, res) {
   res.redirect('/');
 });
+
+router.get('/logout', function(req, res, next) {
+  req.logout();
+  console.log('logout', req.user);
+  res.redirect('/');
+});
+
 
 router.get('/register', function(req, res, next) {
   if(req.user) {
@@ -36,15 +44,19 @@ router.post('/register', function(req, res, next) {
     if(err) {
       return next(err);
     }
-    console.log('Created user', user, req.user)
     //res.flash();
     res.redirect('/auth/user');
   });
 });
 
+//Helper function to return the currently signed in user as json
 router.get('/user', function(req, res, next) {
-  console.log('here', req.user);
-  res.json(req.user);
+  if(req.isAuthenticated()) {
+    res.json(req.user);
+  } else {
+    next(Error('Not Authenticated'));
+  }
+
 });
 
 router.post('/file/put', function(req, res, next) {

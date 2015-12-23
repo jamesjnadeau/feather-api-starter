@@ -9,24 +9,30 @@ nav.navbar.navbar-inverse.navbar-fixed-top
       a.navbar-brand(href='/') API and Backend for G.I. Go Fund
     .navbar-collapse.collapse
       ul.nav.navbar-nav.navbar-right
-        li
-          a(href='/about') About
-        li
-          a(href='#contact') Contact
-        li.dropdown
-          a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-            | Dropdown 
-            span.caret
-          ul.dropdown-menu
-            li
-              a(href='#') Action
-            li
-              a(href='#') Another action
-            li
-              a(href='#') Something else here
-            li.divider(role='separator')
-            li.dropdown-header Nav header
-            li
-              a(href='#') Separated link
-            li
-              a(href='#') One more separated link
+        if(!req.isAuthenticated())
+          li.active
+            a(href='#{env.FRONTEND_URL}') Return To Site 
+          li
+            a(href='/auth/login') Login
+        else
+          li.active
+            a(href='#{env.FRONTEND_URL}') Frontend
+          li
+            a(href='#{env.STAGING_URL}' target="_blank") Staging
+          li.dropdown
+            a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+              | Admin #{req.user.username} 
+              span.caret
+            ul.dropdown-menu
+              li.dropdown-header Content
+              li
+                a(href='/content/create/news') News
+              li
+                a(href='/content/create/event') Event
+              li.divider(role='separator')
+              li.dropdown-header Advanced
+              li
+                a(href='/admin/jsoneditor') JSON Admin
+              li.divider(role='separator')
+              li
+                a(href='/auth/logout') Logout

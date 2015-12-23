@@ -7,6 +7,7 @@ var express = require('express');
 var path = require('path');
 var requireDirectory = require('require-directory');
 var routes = requireDirectory(module);
+var authUtil = require('_local/utils/auth');
 
 module.exports = function(){
   var app = this;
