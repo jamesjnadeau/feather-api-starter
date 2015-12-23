@@ -5,9 +5,11 @@ var figlet = require('figlet');
 var boom = require('_local/utils/boom')
 
 //Start web manager
-pm2WebApp = require('pm2-web/server/app');
-var pm2web = new PM2Web({});
-pm2web.start();
+//pm2WebApp = require('pm2-web/server/app');
+//var pm2web = new PM2Web({});
+//pm2web.start();
+pm2WebApp = require('pm2-gui/web');
+pm2WebApp(false); //debug=false
 
 var open = require("open");
 setTimeout(function() {
@@ -33,8 +35,8 @@ setTimeout(function() {
     console.log('env var KUE_PORT not set, the kue-ui will not be availbe until it is set and the process is restarted.')
   }
 
-  //pm2-web
-  url = 'http://localhost:9000';
+  //pm2-gui
+  url = 'http://localhost:8088';
   open(url);
 
 
