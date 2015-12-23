@@ -55,13 +55,15 @@ router.post('/file/put', function(req, res, next) {
       Key: relPath,
       ACL: 'public-read',
       ContentType: req.body.type,
-      WebsiteRedirectLocation: process.env.API_URL+'auth/file/save/'+result._id,
+      //WebsiteRedirectLocation: process.env.API_URL+'auth/file/save/'+result._id,
     };
-    buckets.storage.getSignedUrl('putObject', params, function(err, url) {
+
+    buckets.storage.getSignedUrl('putObject', params, function(err, data) {
       //return just what we need from the result
       res.json({
         _id: result._id,
-        putURL: url,
+        //putURL: url,
+        signed_request: data,
         url: 'https://'+process.env.AWS_STORAGE_BUCKET+'.s3.amazonaws.com/'+relPath,
         relPath: relPath,
       });

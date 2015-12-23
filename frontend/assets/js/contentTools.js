@@ -41,10 +41,9 @@ require('ContentTools/build/content-tools.js');
 
         //this is called after a putURL is recieved from the server
         //aka the url we will use to upload to s3
-        var putImage = function(putURL) {
+        var putImage = function(imageURL, signed_request) {
           console.log('putImage');
-          // Upload a file to the server
-          var formData;
+
           // Define functions to handle upload progress and completion
           xhrProgress = function (ev) {
               // Set the progress for the upload
@@ -73,26 +72,23 @@ require('ContentTools/build/content-tools.js');
                       };
                   */
                   // Populate the dialog
-                  dialog.populate(image.url, image.size);
+                  dialog.populate(imageURL, image.size);
               } else {
                   // The request failed, notify the user
                   new ContentTools.FlashUI('no');
               }
           }
 
-          // Build the form data to post to the server
-          formData = new FormData();
-          formData.append('image', file);
           // Make the request
           xhr = new XMLHttpRequest();
           xhr.upload.addEventListener('progress', xhrProgress);
           xhr.addEventListener('readystatechange', xhrComplete);
 
           //xhr.open('POST', '/upload-image', true);
-          xhr.open('PUT', putURL, true);
+          xhr.open('PUT', signed_request, true);
           //xhr.setRequestHeader('Content-Type', file.type);
           xhr.setRequestHeader('x-amz-acl', 'public-read');
-          xhr.send(formData);
+          xhr.send(file);
         }
 
         var getPutURL = function() {
@@ -111,7 +107,7 @@ require('ContentTools/build/content-tools.js');
               console.log('done', record);
               dialog.progress(1);
               image = $.extend({}, record, image);
-              putImage(record.putURL);
+              putImage(record.url, record.signed_request);
             },
             error: function() {
               console.log( "error", arguments );
@@ -126,16 +122,18 @@ require('ContentTools/build/content-tools.js');
         reader.onload = function(_file) {
           imageLoaded.src = _file.target.result;
           imageLoaded.onload = function() {
-            var size = {
+            image.size = {
               width: this.width,
               height: this.height,
               type: file.type,
               bytes: file.size,
             };
+
             image.name = file.name;
             getPutURL();
           };
           imageLoaded.onerror= function() {
+            console.log(arguments);
               alert('Invalid file type: '+ file.type);
           };
         };
