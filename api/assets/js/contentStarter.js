@@ -3,8 +3,6 @@ var errorUtil = require ('errorUtil');
 module.exports = function(feathers) {
   console.log(env);
   $(function() {
-    console.log('Starter');
-    console.log($('#createContentButton'));
     var form = $('#createContentForm');
     $('#createContentButton').click(function(event) {
       event.preventDefault();
@@ -27,15 +25,13 @@ module.exports = function(feathers) {
         title: '<h1>'+record.name+'</h1>',
       };
 
-      console.log(record);
-
       var service = feathers('content');
       service.create(record, function(err, result) {
         errorUtil(err, function(err) {
           if(!err) {// Everything went well
             var url = env.STAGING_URL+'/'+record.relPath;
             console.log('opening', url);
-            window.open(url, {}, false);
+            window.open(url, '_blank');
           } else {
             //error should pop up
           }
