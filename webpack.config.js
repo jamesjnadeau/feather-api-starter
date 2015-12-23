@@ -48,7 +48,7 @@ module.exports = [
               'file?hash=sha512&digest=hex&name=[hash].[ext]',
               'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
           ]
-        }
+        },
       ],
     },
     entry: {
@@ -98,6 +98,8 @@ module.exports = [
         {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
         {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
         {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml'},
+        //used in ContentTools only
+        { test: /\.coffee$/, loader: "coffee-loader" },
       ],
     },
     entry: {
@@ -120,7 +122,9 @@ module.exports = [
       new webpack.ProvidePlugin({
         $: "jquery",
         jQuery: "jquery",
-        "window.jQuery": "jquery"
+        "window.jQuery": "jquery",
+        //"ContentTools": 'ContentTools/build/content-tools.js',
+        //"window.ContentTools": 'ContentTools/build/content-tools.js'
       }),
       //define ENV variables
       new webpack.DefinePlugin({
