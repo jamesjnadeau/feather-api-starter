@@ -52,8 +52,8 @@ module.exports = [
       ],
     },
     entry: {
-      'main': [__dirname+'/api/assets/js/index.js', hotMiddlewareScript],
-      'styles': [__dirname+'/api/assets/css/index.js', hotMiddlewareScript],
+      'main': [__dirname+'/api/assets/js/index.js', ], //hotMiddlewareScript
+      'styles': [__dirname+'/api/assets/css/index.js'], //hotMiddlewareScript
     },
     output: {
       filename: "[name].js",
@@ -70,6 +70,10 @@ module.exports = [
         $: "jquery",
         jQuery: "jquery",
         "window.jQuery": "jquery",
+      }),
+      //define ENV variables
+      new webpack.DefinePlugin({
+        'env': sanitizedEnv,
       }),
       //webpack-hot-middleware
       new webpack.optimize.OccurenceOrderPlugin(),

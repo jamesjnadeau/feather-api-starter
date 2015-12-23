@@ -6,7 +6,12 @@ var debug = require('debug')('api:routes');
 var express = require('express');
 var path = require('path');
 var requireDirectory = require('require-directory');
-var routes = requireDirectory(module);
+try {
+  var routes = requireDirectory(module);
+} catch (err) {
+  console.log(err);
+}
+
 var authUtil = require('_local/utils/auth');
 
 module.exports = function(){

@@ -3,6 +3,7 @@ var router = express.Router();
 var logger = require('_local/utils/logger');
 var fs = require('fs');
 var authUtil = require('_local/utils/auth');
+var contentService = require('_local/services/content');
 
 
 /*
@@ -24,13 +25,36 @@ router.get('/jsoneditor', function(req, res, next) {
       var name = files[i].slice(0, -3);;
       models.push(name);
     }
-  res.render('admin/jsoneditor', {
+  res.render('admin/jsonEditor', {
     models: models
   });
 });
 
 router.get('/content/create/:type', function(req, res, next) {
-  res.json('hi');
+  res.render('admin/contentCreator', {
+
+  });
+});
+
+router.post('/content/create/:type', function(req, res, next) {
+  var type = req.params.type;
+  var record = {
+    name: req.body.name,
+    type: type,
+    relPath: type+'/'+encodeURIComponent(req.body.path),
+    fields: {
+      title: '<h1>'+req.body.name+'</h1>',
+    }
+  };
+
+  contentService.create(record, function(err, result) {
+    if(err) {
+      return next(err);
+    }
+    var redirectTo = process.env.STAGING_URL+'/'+result.relPath;
+    console.log('redirecting to', redirectTo);
+    res.redirect(redirectTo);
+  });
 })
 
 //this should be last

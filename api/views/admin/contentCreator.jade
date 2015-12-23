@@ -1,0 +1,25 @@
+extends ../layout
+
+block content
+  
+  if error
+    .alert.alert-danger Error
+  
+  
+  -var type = req.params.type;
+  -type = type.charAt(0).toUpperCase() + type.slice(1);
+  h1 Create #{type}
+  form#createContentForm.form-horizontal()
+    input(type="hidden" name="type" value="#{req.params.type}")
+    .form-group
+      label.col-sm-2.control-label(for='name') Name
+      .col-sm-10
+        input#name.form-control(type='text' name="name" placeholder='Name / Title')
+    .form-group
+      label.col-sm-2.control-label(for='path') Path
+      label.col-sm-1.control-label /#{req.params.type}/
+      .col-sm-9
+        input#path.form-control(type='text' name="relPath" placeholder='what-ever-path-you-desire')
+    .form-group
+      .col-sm-offset-5.col-sm-2
+        button#createContentButton.btn.btn-default.btn-block() Create
