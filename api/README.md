@@ -15,5 +15,9 @@
 | MONGO_URI  | (mongodb://localhost/{packageName}) the db to connect to.  |
 | ALLOWED_ORIGINS  | (http://localhost:8081~http://localhost:8082) The CORS origins allowed, see corser package and initializer, should contain the staging and frontend urls. Note the use of the tilde char ~ to seperate multiple origins.   |
 | KUE_PORT  | () Setting this will run the kue UI/app on the specified port, not setting this does not start the app.  |
+| SESSION_SECRET  | (y8GgNmWtMujFNcAY0sQf) the key used to sign sessions, also used in the cookie parser, this should be set on production  |
+| SESSION_KEY  | (VS2WnUjlLreAJAwubuJu) the secret used for sessions, this should be set on production  |
+|   |   |
+|   |   |
 |   |   |
 |   |   |

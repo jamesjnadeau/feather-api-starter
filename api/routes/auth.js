@@ -6,6 +6,7 @@ var passport = require('passport');
 
 var buckets = require('_local/utils/aws-buckets')
 var fileService = require('_local/services/file');
+var userService = require('_local/services/file');
 var crypto = require('crypto');
 
 router.get('/login', function(req, res, next) {
@@ -17,7 +18,11 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
 });
 
 router.get('/register', function(req, res, next) {
-  res.render('auth/register');
+  if(req.user) {
+    res.redirect('/user');
+  } else {
+    res.render('auth/register');
+  }
 });
 
 router.post('/register', function(req, res, next) {
@@ -25,14 +30,21 @@ router.post('/register', function(req, res, next) {
   var user = new User({
     username: req.body.username
   });
-  //user passport-local-mongoose function to register user
-  User.register(user, req.body.password, function(err) {
+  //use passport-local-mongoose function to register user
+  User.register(user, req.body.password, function(err, newUser) {
+
     if(err) {
       return next(err);
     }
+    console.log('Created user', user, req.user)
     //res.flash();
-    res.redirect('/');
+    res.redirect('/auth/user');
   });
+});
+
+router.get('/user', function(req, res, next) {
+  console.log('here', req.user);
+  res.json(req.user);
 });
 
 router.post('/file/put', function(req, res, next) {

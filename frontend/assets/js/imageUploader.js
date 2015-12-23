@@ -166,7 +166,6 @@ module.exports = function (dialog) {
           image.url,
           getContentToolsSize(),
           {
-            style: ''
             //'alt': response.alt,
             'data-ce-max-width': image.size.width
           });

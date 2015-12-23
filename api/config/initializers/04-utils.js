@@ -1,6 +1,5 @@
 
 var favicon = require('serve-favicon');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 //Express logging
@@ -19,5 +18,4 @@ module.exports = function() {
   app.use(bodyParser.json());
   // Turn on URL-encoded parser for REST services
   app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(cookieParser());
 };

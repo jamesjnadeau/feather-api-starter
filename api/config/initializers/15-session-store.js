@@ -15,12 +15,13 @@ var redisSettings = {
 };
 
 var sessionSettings = {
-  //TODO Move these to env vars
-  secret: 'y8GgNmWtMujFNcAY0sQf',
-  key: 'VS2WnUjlLreAJAwubuJu',
+  secret: process.env.SESSION_SECRET || 'y8GgNmWtMujFNcAY0sQf',
+  key: process.env.SESSION_KEY ||'VS2WnUjlLreAJAwubuJu',
   cookie: { maxAge: maxAge },
   domain: process.env.COOKIE_DOMAIN  || 'localhost',
   store: false, //this is set below once redis is connected
+  resave: true,
+  saveUninitialized: false,
 }
 
 module.exports = function(next) {
