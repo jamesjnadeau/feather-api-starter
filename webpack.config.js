@@ -21,7 +21,7 @@ var resolve = {
 
 //Sanitized Env variables used throughout frontend Js
 sanitizedEnv = JSON.stringify(require('_local/utils/sanitizedEnv'));
-console.log('webpack', sanitizedEnv);
+console.log('webpack ENV', sanitizedEnv);
 
 module.exports = [
 /*

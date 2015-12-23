@@ -50,21 +50,21 @@ router.post('/file/put', function(req, res, next) {
     //Generate relative path here as well, virtuals don't seem to work for the result...
     var relPath = result.prefix+'/'+result._id.toHexString();
     //Generate url for put operation
-    console.log(req.query);
     var params = {
       Key: relPath,
       ACL: 'public-read',
       ContentType: req.body.type,
-      //WebsiteRedirectLocation: process.env.API_URL+'auth/file/save/'+result._id,
     };
 
     buckets.storage.getSignedUrl('putObject', params, function(err, data) {
       //return just what we need from the result
       res.json({
         _id: result._id,
-        //putURL: url,
-        signed_request: data,
+        //this is the url used to upload to s3
+        signedRequest: data,
+        //and some urls to hit when everything goes as planned
         url: 'https://'+process.env.AWS_STORAGE_BUCKET+'.s3.amazonaws.com/'+relPath,
+        successURL: process.env.API_URL+'/auth/file/save/'+result._id,
         relPath: relPath,
       });
     });
@@ -75,10 +75,8 @@ router.get('/file/save/:id', function(req, res, next) {
   var patch = {
     status: 'uploaded'
   }
-  fileService.patch(req.query.id, patch, function(err, result) {
-    if(result.length) {
-      var record = result
-    }
+  fileService.patch(req.params.id, patch, function(err, record) {
+    res.json(record);
   });
 });
 
