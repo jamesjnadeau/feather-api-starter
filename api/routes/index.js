@@ -10,6 +10,7 @@ try {
   var routes = requireDirectory(module);
 } catch (err) {
   console.log(err);
+  throw new Error('Problem Loading Routes, error is output above, check last edited api/routes/* for issue compiling');
 }
 
 var authUtil = require('_local/utils/auth');

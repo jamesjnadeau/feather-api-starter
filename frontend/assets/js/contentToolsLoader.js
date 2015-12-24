@@ -1,4 +1,4 @@
-
+//NOTE THIS IS NOT USED ANYWHERE!!!! yet...
 //Taken from https://github.com/GetmeUK/ContentTools/blob/master/Gruntfile.coffee#L15
 require('ContentTools/src/scripts/namespace.coffee');
 
@@ -24,4 +24,4 @@ require('ContentTools/src/scripts/history.coffee');
 require('ContentTools/src/scripts/styles.coffee');
 require('ContentTools/src/scripts/tools.coffee');
 
-window.ContentEdit = ContentEdit;
+//window.ContentEdit = ContentEdit;

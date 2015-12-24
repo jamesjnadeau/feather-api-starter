@@ -7,7 +7,8 @@ var jade = require('jade');
 
 //Plugins
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
-
+var contentPlugin2 = require('_local/contentPlugin2');
+var Clean = require('clean-webpack-plugin');
 var hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmw&timeout=20000&reload=true&overlay=true';
 
 //Globals - used across all packs
@@ -33,8 +34,8 @@ module.exports = [
 
     module: {
       loaders: [
-        { test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")
-        },
+        //css/less loaders
+        { test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")},
         { test: /\.less$/, loader: "style-loader!css-loader!less-loader"},
         //taken from gowravshekar/bootstrap-webpack
         {test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff'},
@@ -63,6 +64,7 @@ module.exports = [
     },
     resolve: resolve,
     plugins: [
+      //new Clean([__dirname+'/api/public/built/']),
       //outputs all css to this file
       new ExtractTextPlugin("styles.css"),
       //make jQuery available everywhere
@@ -98,7 +100,7 @@ module.exports = [
         {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
         {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
         {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml'},
-        //used in ContentTools only
+        //cofee loader for contentTools plugin
         { test: /\.coffee$/, loader: "coffee-loader" },
       ],
     },
@@ -106,7 +108,7 @@ module.exports = [
       'main': [__dirname+'/frontend/assets/js/index.js'],
       'styles': [__dirname+'/frontend/assets/css/index.js'],
       'site-generator': 'static-site-loader!'+__dirname+'/frontend/content/index.js',
-      'content-loader': '_local/contentPlugin!'+__dirname+'/frontend/content/index.js',
+      //'content-loader': '_local/contentPlugin!'+__dirname+'/frontend/content/index.js',
     },
     output: {
       filename: "[name].js",
@@ -116,6 +118,7 @@ module.exports = [
     },
     resolve: resolve,
     plugins: [
+      //new Clean([__dirname+'/frontend/built/']),
       //outputs all css to this file
       new ExtractTextPlugin("styles.css"),
       //make jQuery available everywhere
@@ -130,10 +133,11 @@ module.exports = [
       new webpack.DefinePlugin({
         'env': sanitizedEnv,
       }),
+      new contentPlugin2(),
       //webpack-hot-middleware
-      new webpack.optimize.OccurenceOrderPlugin(),
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin(),
+      //new webpack.optimize.OccurenceOrderPlugin(),
+      //new webpack.HotModuleReplacementPlugin(),
+      //new webpack.NoErrorsPlugin(),
     ],
     staticSiteLoader: {
       //perform any preprocessing tasks you might need here.
