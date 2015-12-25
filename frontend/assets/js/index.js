@@ -1,5 +1,8 @@
 console.log('Start.');
-require('bootstrap/dist/js/bootstrap.js');
+//Theme framework JS
+//require('bootstrap/dist/js/bootstrap.js');
+require('material-design-lite/material.min.js');
+
 var notify = require('notifyUtil');
 
 var service = require('_local/assets/js/utils/serviceGetter')(env.API_URL);

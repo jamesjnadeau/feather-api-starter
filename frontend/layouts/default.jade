@@ -1,21 +1,44 @@
 doctype html
 html
   head
+    include _shared/_meta
     title= title
-    link(rel='stylesheet', href='/styles.css')
+    
+    
+    //Favicon
+    link(rel='shortcut icon', href='images/favicon.png')
+    
+    link(rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.light_green-indigo.min.css")
+    link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
+    link(rel="stylesheet" href="/styles.css")
+    
+    
     //if lt IE 9
-      script(src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js')
-      script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
+      script(src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js")
+      script(src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js")
 
-  body
-    include _shared/_nav
-    // Main jumbotron for a primary marketing message or call to action
-    block jumbotron
-    .container
-      block content
-      hr
-      footer
-        p.text-center © The G.I. Go Fund is a 501(c)(3) nonprofit organization
-    script window.API_URL = '#{API_URL}'
-    block scripts
+  //-body
+    //include _shared/_nav
+    //-Main jumbotron for a primary marketing message or call to action
+    //block jumbotron
+    //.container
+      //-Where main content goes
+      //block content
+      //hr
+      //footer
+        //p.text-center © The G.I. Go Fund is a 501(c)(3) nonprofit organization
+    //script window.API_URL = "#{API_URL}"
+    //block scripts
+    //script(src="/main.js")
+  
+  body.mdl-base
+    #main-container.demo-layout-transparent.mdl-layout.mdl-js-layout
+      include _shared/_nav
+      main.mdl-layout__content
+        .page-content
+          block content
+
+
+
     script(src="/main.js")
+    

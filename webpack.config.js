@@ -100,8 +100,17 @@ module.exports = [
         {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
         {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
         {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml'},
+        //image-loader
+        {
+          test: /\.(jpe?g|png|gif|svg)$/i,
+          loaders: [
+              'file?hash=sha512&digest=hex&name=[hash].[ext]',
+              'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+          ]
+        },
+
         //cofee loader for contentTools plugin
-        { test: /\.coffee$/, loader: "coffee-loader" },
+        //NOT USED, but might be needed{ test: /\.coffee$/, loader: "coffee-loader" },
       ],
     },
     entry: {

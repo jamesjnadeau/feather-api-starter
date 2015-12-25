@@ -1,32 +1,14 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.demo-layout-transparent {
+  background: url('../images/fireworks.jpg') center / cover;
+}
+.demo-layout-transparent .mdl-layout__header,
+.demo-layout-transparent .mdl-layout__drawer-button {
+  /* This background is dark, so we set text to white. Use 87% black instead if
+     your background is light. */
+  color: white;
 }
 
-a {
-  color: #00B7FF;
-}
-
-.btn-bottom {
-  width: 70%;
-  margin: 5%;
-  margin-left: 15%;
-  margin-right: 15%;
-  position: absolute;
-  bottom: 15px;
-  left: 0;
-}
-
-/*standard height - used on front page to allow for btn-bottom */
-.stack-1 {
-  min-height: 300px;
-}
-
-/* sets some standard margins for images in content */
-[data-editable] img,
-/* these are used when editing */
-.ce-element--type-image, .ce-element--type-video {
-  margin-left: 10px !important;
-  margin-right: 10px !important;
-  margin-bottom: 10px !important;
+.container-middle {
+  max-width: 900px;
+  margin: auto;
 }
