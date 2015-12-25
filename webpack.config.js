@@ -135,9 +135,9 @@ module.exports = [
       }),
       new contentPlugin2(),
       //webpack-hot-middleware
-      //new webpack.optimize.OccurenceOrderPlugin(),
-      //new webpack.HotModuleReplacementPlugin(),
-      //new webpack.NoErrorsPlugin(),
+      new webpack.optimize.OccurenceOrderPlugin(),
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoErrorsPlugin(),
     ],
     staticSiteLoader: {
       //perform any preprocessing tasks you might need here.
