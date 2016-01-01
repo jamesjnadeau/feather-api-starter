@@ -18,12 +18,14 @@ large loads, and allow it to be worked on and managed by it's end users. A built
 staging system allows edits to be tested and made before the staging site is pushed live.
 All of this is controlled, and calls are made to the a backend api site that.
 
-The api is started from `api/bin/www` and is a basic express app with [feathers](http://feathersjs.com/)
+The api is started from `bin/www` and is a basic express app with [feathers](http://feathersjs.com/)
 and [mongoose](https://github.com/feathersjs/feathers-mongoose),
-added on top of it to hasten api dev. From here, any calls to the frontend are handled,
-and changes could be pushed to the staging site, being served from `frontend/built/`.
-When all is considered ok to be pushed live, the site is synced to s3 via a
-interface accessible to admins from the api's site.
+added on top of it to hasten api dev. The api site handles all the saving, updating,
+and administrative features for the sites. The front end is essentially a statically
+generated html site being served from `frontend/built/`. A staging version of the site
+that allows editing of pages, will be made available for authorized users to preview
+changes before pushing live. When all is considered ok to be pushed live, the
+site is synced to s3 via a interface accessible to admins from the api's site.
 
 A single webpack.config.js file runs all the frontend site generation, from html,
 to css, and of course js. This allows all the sites to have auto page reloading
@@ -57,24 +59,28 @@ rebuild and page refresh for you. Here's a quick list of tips:
 
 1. The default setup should work, take a look at `npm run` as try to put useful
  commands there as you come by them
-1. [localhost:8080 Default Api Site](http://localhost:8080)
-1. [localhost:8000 Kue UI - used to see background processing jobs.](http://localhost:8000)
-1. Keep in mind, CORS is keep, take a loot at `api/config/initializers/##-corser` to debug
+1. [localhost:8080 Api Site](http://localhost:8080)
+1. [localhost:8081 Fronted Site](http://localhost:8081)
+1. [localhost:8082 Staging Site](http://localhost:8081)
+1. [localhost:8000 Kue UI ](http://localhost:8000) - used to see background processing jobs(s3 sync for example).
+1. Keep in mind, CORS is key, take a loot at `api/config/initializers/##-corser` to debug
 any issues you might have made for yourself.
 1. `node_modules/_local` contains code that is used in both the api and the frontend
 generation. Things like models, the static content loader, and shared frontend code.
 
 ## Design Goals
 
-I'd like to use the 18f standards as a starting point
+I'd like to use the 18f standards as a starting point: https://playbook.cio.gov/designstandards/
 
-https://playbook.cio.gov/designstandards/
+This site needs a brand. Then it needs a content strategy.... Not sure if
+this is the designers responsibility, but will play a big role in what they produce.
 
-This site needs a brand. Then it needs a content strategy.
-
--[ ] home page theme
--[ ] Promotion page theme -
--[ ] Email template
--[ ] Team page
--[ ] Event page
--[ ] News/blog items/pages
+Possible deliverables():
+- [ ] Landing(home) Page layout
+- [ ] Donation and Payment forms
+- [ ] Promotion page layouts - perhaps 2
+- [ ] Email template(s) - A general template for sending info, another that begs for money. Seasonal offerings if time allows (xmas, veterans day, memorial day, July 4th)
+- [ ] Team pages - Used for teams(companies/schools) to get information about their orgs fund raising drive.
+- [ ] Event page - Sign up and advertising landing pages for various events they do throughout the year - need more info from client about this.
+- [ ] News/blog items/pages - Basic text articles with hero videos/images. Goes along with content  stategy.
+- [ ] Fliers and print-outs for teams to advertise fundraising events. A design that looks good without color will go a long way here. (most companies print in B&W to save $ on ink)
