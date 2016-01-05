@@ -26,7 +26,6 @@ var contentPaste = require('./contentPaste');
 
     //bind save event to make call to api
     editor.bind('save', function (regions, calledBy) {
-      console.log(regions);
       this.busy(true);
       var id = window.CONTENT_ID;
       var type = window.CONTENT_TYPE;

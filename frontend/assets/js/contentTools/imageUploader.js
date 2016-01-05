@@ -112,7 +112,6 @@ module.exports = function (dialog) {
         getPutURL();
       };
       imageLoaded.onerror= function() {
-        console.log(arguments);
           alert('Invalid file type: '+ file.type);
       };
     };
@@ -149,7 +148,6 @@ module.exports = function (dialog) {
     //check if the regeion is not the default [0, 0, 1, 1]
     if (cropRegion[0] != 0 || cropRegion[1] != 0
       || cropRegion[2] != 1 || cropRegion[3] != 1) {
-      console.log(cropRegion);
       alert('Cropping is not yet supported, please crop your image before uploading.');
       //TODO implement image cropping
     }
@@ -159,7 +157,6 @@ module.exports = function (dialog) {
       url: image.successURL,
       //Everything went great, populate the dialog box
       success: function(record) {
-        console.log(image);
         // Free the dialog from its busy state
         dialog.busy(false);
         dialog.save(

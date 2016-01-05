@@ -4,7 +4,7 @@
 //modified to deal with pasting in existin html by stripping it out
 
 module.exports = function(element, clipboardData) {
-console.log('clipboardData', clipboardData.getData('text/plain'));
+//console.log('clipboardData', clipboardData.getData('text/plain'));
   var className, content, cursor, encodeHTML, i, insertAt, insertIn, insertNode, item, itemText, lastItem, line, lineLength, lines, selection, tail, tip, _i, _len;
   content = clipboardData.getData('text/plain');
   lines = content.split('\n');
