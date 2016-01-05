@@ -60,6 +60,7 @@
     "jade": "^1.11.0",
     "jquery": "^2.1.4",
     "jquery-ui": "^1.10.5",
+    "jquery-validation": "^1.14.0",
     "jsoneditor": "^4.2.1",
     "kue": "^0.10.4",
     "less": "^2.5.3",
